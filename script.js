@@ -1,8 +1,8 @@
 var categories =
   {
-    "80s Bands": ["Blondie", "Tears for Fears", "The Talking Heads"],
-    "Colors": ["Red", "Blue", "Green", "Violet"],
-    "Jobs": ["Policeman", "Musician"]
+    "80s Bands": ["blondie", "tears for fears", "the talking heads"],
+    "Colors": ["red", "blue", "green", "violet"],
+    "Jobs": ["policeman", "musician"]
   };
 
 
@@ -18,25 +18,24 @@ var playGame = () => {
   while (life > 0) {
     // prompt user for an answer
     let letter = prompt("enter a letter");
-    let UserIndexArr = getAllIndexes(answerArr, letter);
+    let userIndexArr = getAllIndexes(answerArr, letter);
+    alert("The user index arr is: " + userIndexArr);
     // if user letter occurs in the answer
-    if (UserIndexArr.length > 0) {
-      for (i=0; i < answerArr.length; i++) {
-        for (j=0; j < UserIndexArr.length; j++) {
-          blankSpaceArr[i] = answerArr[UserIndexArr[j]];
-        } // end inner for loop
-      } // end outter for loop
+
+    if (userIndexArr.length > 0) {
+      for (j=0; j < userIndexArr; j++) {
+        blankSpaceArr[userIndexArr[j]] = letter;
+      }
 
       userGuess = blankSpaceArr.join("");
-      alert("you enter while's if statement");
+      console.log("userGuess: " + userGuess);
 
     } else {
-      alert("you entered whiles else statement");
       alreadyGuessedLetters.push(letter);
       life--;
     }
 
-    alert("Answer:" + answer);
+    alert("Answer: " + answer);
     console.log("User guess: " + userGuess);
     console.log("Already Guessed Letters: " + alreadyGuessedLetters);
     console.log("Lives: " + life);
@@ -69,16 +68,18 @@ var initiateAnswer = (obj) => {
 };
 
 var generateBlankSpaces = (str) => {
-  var wordArr = str.split("");
-  var blanksArr = [];
-  for (i=0; i < wordArr.length; i++) {
-    if (wordArr[i] === " ") {
-      blanksArr.push[" "];
+  var blankArr = [];
+  var splitted = str.split("");
+
+  for (i=0; i < splitted.length; i++) {
+    if (splitted[i] === " ") {
+      blankArr.push(" ");
     } else {
-      blanksArr.push["_"];
+      blankArr.push("_");
     }
   }
-  return blanksArr;
+
+  return blankArr;
 };
 
 playGame();
