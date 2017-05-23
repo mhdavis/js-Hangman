@@ -1,26 +1,50 @@
-var categories =
+/*
+BUGS THAT NEED FIXING
+-need to not have repeats in 'already guessed letters'
+-need ot include the value of first letter in user guess
+*/
+
+const categories = [
   {
-    "80s Bands": ["blondie", "tears for fears", "the talking heads"],
-    "Colors": ["red", "blue", "green", "violet"],
-    "Jobs": ["policeman", "musician"]
-  };
+    "hint": "80's Bands",
+    "guesswords": ["blondie", "tears for fears", "the talking heads"]
+  },
+  {
+    "hint": "Colors",
+    "guesswords": ["red", "blue", "green", "violet"]
+  },
+  {
+    "hint": "Jobs",
+    "guesswords": ["policeman", "musician"]
+  }
+];
 
 
 // plays out the full game
 var playGame = () => {
-  let answer = initiateAnswer(categories);
+  let randNum1 = Math.floor(Math.random() * categories.length);
+  let randNum2 = Math.floor(Math.random() * categories[randNum1].guesswords.length);
+
+  let randomCategory = categories[randNum1];
+  console.log("Random Category: " + randomCategory);
+
+  let hint = randomCategory.hint;
+  console.log("hint: " + hint);
+
+  let answer =  randomCategory.guesswords[randNum2];
   let answerArr = answer.split("");
   let blankSpaceArr = generateBlankSpaces(answer);
   let userGuess;
   let alreadyGuessedLetters = [];
   let life = 2; // Should be 10 / set to 2 for testing purposes
 
+  console.log("Answer: " + answer);
+  console.log("------------------------")
+
   while (life > 0) {
-    // prompt user for an answer
     let letter = prompt("enter a letter");
     let userIndexArr = getAllIndexes(answerArr, letter);
-    alert("The user index arr is: " + userIndexArr);
-    // if user letter occurs in the answer
+    console.log("index array: " + userIndexArr);
 
     if (userIndexArr.length > 0) {
       for (j=0; j < userIndexArr; j++) {
@@ -35,7 +59,6 @@ var playGame = () => {
       life--;
     }
 
-    alert("Answer: " + answer);
     console.log("User guess: " + userGuess);
     console.log("Already Guessed Letters: " + alreadyGuessedLetters);
     console.log("Lives: " + life);
@@ -59,13 +82,6 @@ var getAllIndexes = (arr, val) => {
   return indexes;
 }
 
-// produces a answer in the form of  a string
-var initiateAnswer = (obj) => {
-    var keys = Object.keys(obj);
-    var randomPropertyArr = obj[keys[ keys.length * Math.random() << 0]];
-    var randomPropertyVal = randomPropertyArr[Math.floor(Math.random() * randomPropertyArr.length)];
-    return randomPropertyVal;
-};
 
 var generateBlankSpaces = (str) => {
   var blankArr = [];
