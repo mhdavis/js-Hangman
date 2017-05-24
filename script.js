@@ -1,9 +1,3 @@
-/*
-BUGS THAT NEED FIXING
--need to not have repeats in 'already guessed letters'
--need ot include the value of first letter in user guess
-*/
-
 const categories = [
   {
     "hint": "80's Bands",
@@ -21,7 +15,9 @@ const categories = [
 
 
 // plays out the full game
-var playGame = () => {
+function playGame () {
+
+  // Declares all variables needed for function;
   let randNum1 = Math.floor(Math.random() * categories.length);
   let randNum2 = Math.floor(Math.random() * categories[randNum1].guesswords.length);
 
@@ -36,42 +32,87 @@ var playGame = () => {
   let blankSpaceArr = generateBlankSpaces(answer);
   let userGuess;
   let alreadyGuessedLetters = [];
-  let life = 2; // Should be 10 / set to 2 for testing purposes
+  let lives = 10;
+  let match = false;
 
-  console.log("Answer: " + answer);
+  console.log("ANSWER: " + answer);
   console.log("------------------------")
 
-  while (life > 0) {
-    let letter = prompt("enter a letter");
-    let userIndexArr = getAllIndexes(answerArr, letter);
-    console.log("index array: " + userIndexArr);
+  // while player has lives left and has NOT guessed the correct full word
+  while (lives !== 0) {
 
-    if (userIndexArr.length > 0) {
-      for (j=0; j < userIndexArr; j++) {
-        blankSpaceArr[userIndexArr[j]] = letter;
-      }
-
-      userGuess = blankSpaceArr.join("");
-      console.log("userGuess: " + userGuess);
-
-    } else {
-      alreadyGuessedLetters.push(letter);
-      life--;
+    // first check if the user's guess from the previous iteration of the
+    // while loop is the same as the answer
+    if(userGuess === answer) {
+      match = true;
+      break;
     }
 
-    console.log("User guess: " + userGuess);
-    console.log("Already Guessed Letters: " + alreadyGuessedLetters);
-    console.log("Lives: " + life);
+    // otherwise,
+    // ask the player for a letter
+    let letter = prompt("enter a letter").toLowerCase();
+
+
+    // if player inputs one letter
+    if (typeof letter === "string" && letter.length === 1) {
+
+      // determine all the instances that letter occurs in the answer
+      let userIndexArr = getAllIndexes(answerArr, letter);
+      console.log("INDEX ARRAY: " + userIndexArr);
+
+      // if the letter the player inputed DOES occur at least once in the answer
+      if (userIndexArr.length > 0) {
+        // update the blank spaces of the the blank array to show the letter in
+        // its proper spot relative to the answer
+        for (var j=0; j < userIndexArr.length; j++) {
+          blankSpaceArr[userIndexArr[j]] = letter;
+        } // end for loop
+
+        userGuess = blankSpaceArr.join("");
+        console.log("userGuess: " + userGuess);
+        console.log("Answer: " + answer);
+
+      } else {
+        // if the letter the player guessed is NOT in the answer
+        if (alreadyGuessedLetters.indexOf(letter) === -1) {
+          // add that letter to an array of already guessed letters not found in the answer
+          alreadyGuessedLetters.push(letter);
+          // and take away one life
+          lives--;
+        } // end if statement
+      } // end else statement
+
+      console.log("USER GUESS: " + userGuess);
+      console.log("Already Guessed Letters: " + alreadyGuessedLetters);
+      console.log("Lives: " + lives);
+
+    } else {
+      alert("Please enter one lowercase letter as your guess");
+    } // end else statement
   } // end while loop
 
-  if (life === 0) {
+  // if the player runs out of lives
+  if (lives === 0) {
+    // tell the GAME OVER!
     alert("Game Over! You Lose");
-  } else {
+  // Otherwise, if their guess matches the answer, tell the player they WON!
+  } else if (match === true) {
     alert("Congratulations! You Won")
-  }
-}
+  } // end else if statment
 
-var getAllIndexes = (arr, val) => {
+} // end playGame function
+
+//---------------------------------------------------------------------------
+
+/*
+getAllIndexes function
+
+takes an array and a value and determines if the instances of that value
+in the given array. Then returns an array of the indexes in which that
+value appeared in the provided array.
+*/
+
+function getAllIndexes (arr, val) {
   var indexes = [];
   var i;
   for (i=0; i < arr.length; i++) {
@@ -82,8 +123,15 @@ var getAllIndexes = (arr, val) => {
   return indexes;
 }
 
+/*
+generateBlankSpaces function
 
-var generateBlankSpaces = (str) => {
+Takes a string and subsitutes any characters in the string that are NOT
+spaces with an underscore. Returns an array of the string with only underscores
+and spaces.
+*/
+
+function generateBlankSpaces (str) {
   var blankArr = [];
   var splitted = str.split("");
 
@@ -97,5 +145,7 @@ var generateBlankSpaces = (str) => {
 
   return blankArr;
 };
+
+//----------------------------------------------------------------------------
 
 playGame();
