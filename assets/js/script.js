@@ -15,8 +15,14 @@ $(document).ready() {
   ];
 
 
+  $(".refresh-button").on("click", playGame());
+  playGame();
+
   // plays out the full game
   function playGame () {
+    $("#win-block").hide();
+    $("#lose-block").hide();
+    $("main-container").show();
 
     // Declares all variables needed for function;
     let randNum1 = Math.floor(Math.random() * categories.length);
@@ -24,14 +30,21 @@ $(document).ready() {
 
     let randomCategory = categories[randNum1];
     let hint = randomCategory.hint;
+    $("#hint").html("'" + hint + "'");
 
     let answer =  randomCategory.guesswords[randNum2];
     let answerArr = answer.split("");
 
     let blankSpaceArr = generateBlankSpaces(answer);
+
     let userGuess = blankSpaceArr.join("");
+    $("#guess-word").html("'" + userGuess + "'");
+
     let alreadyGuessedLetters = [];
+
     let lives = 10;
+    $("#lives").html("'" + lives + "'")
+
     let match = false;
 
 
@@ -47,7 +60,10 @@ $(document).ready() {
 
       // otherwise,
       // ask the player for a letter
-      let letter = prompt("enter a letter").toLowerCase();
+      let letter =
+      $('#submit-button').on('click', function() {
+        $('#player-input').val();
+      });
 
 
       // if player inputs one letter
@@ -84,10 +100,14 @@ $(document).ready() {
     // if the player runs out of lives
     if (lives === 0) {
       // tell the GAME OVER!
-      alert("Game Over! You Lose");
+      $("#win-block").hide();
+      $("#lose-block").show();
+      $("main-container").hide();
     // Otherwise, if their guess matches the answer, tell the player they WON!
     } else if (match === true) {
-      alert("Congratulations! You Won")
+      $("#win-block").show();
+      $("#lose-block").hide();
+      $("main-container").hide();
     } // end else if statment
 
   } // end playGame function
@@ -138,5 +158,4 @@ $(document).ready() {
 
   //----------------------------------------------------------------------------
 
-  playGame();
-}
+} // end document.ready function
