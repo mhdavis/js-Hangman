@@ -1,4 +1,4 @@
-$(document).ready() {
+$(document).ready(function() {
   const categories = [
     {
       "hint": "80's Bands",
@@ -158,4 +158,4 @@ $(document).ready() {
 
   //----------------------------------------------------------------------------
 
-} // end document.ready function
+}):// end document.ready function
