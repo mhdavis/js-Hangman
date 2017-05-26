@@ -1,4 +1,4 @@
-$(document).ready() {
+$(document).ready(function () {
   const categories = [
     {
       "hint": "80's Bands",
@@ -14,80 +14,85 @@ $(document).ready() {
     }
   ];
 
-
-  $(".refresh-button").on("click", playGame());
-  playGame();
-
   // plays out the full game
-  function playGame () {
+
+  function startGame () {
+
     $("#win-block").hide();
     $("#lose-block").hide();
-    $("main-container").show();
+    $("#main-container").show();
+
+    $('.refresh-button').on("click", startGame());
 
     // Declares all variables needed for function;
     let randNum1 = Math.floor(Math.random() * categories.length);
     let randNum2 = Math.floor(Math.random() * categories[randNum1].guesswords.length);
-
     let randomCategory = categories[randNum1];
+
     let hint = randomCategory.hint;
-    $("#hint").html("'" + hint + "'");
+    $("#hint").html(hint);
 
     let answer =  randomCategory.guesswords[randNum2];
+    console.log("answer: " + answer);
     let answerArr = answer.split("");
 
     let blankSpaceArr = generateBlankSpaces(answer);
 
     let userGuess = blankSpaceArr.join("");
-    $("#guess-word").html("'" + userGuess + "'");
+    $("#guess-word").html(userGuess);
 
     let alreadyGuessedLetters = [];
 
-    let lives = 10;
-    $("#lives").html("'" + lives + "'")
-
-    let match = false;
+    let lives = 2;
+    $("#lives").html(lives);
 
 
-    // while player has lives left and has NOT guessed the correct full word
-    while (lives !== 0) {
+    $('#submit-button').on('click', function () {
 
-      // first check if the user's guess from the previous iteration of the
-      // while loop is the same as the answer
-      if (userGuess === answer) {
-        match = true;
-        break;
-      }
-
-      // otherwise,
-      // ask the player for a letter
-      let letter =
-      $('#submit-button').on('click', function() {
-        $('#player-input').val();
-      });
-
-
+      let letter = $('#player-input').val();
       // if player inputs one letter
       if (typeof letter === "string" && letter.length === 1) {
-
+        console.log("--------------------------------------")
         // determine all the instances that letter occurs in the answer
         let userIndexArr = getAllIndexes(answerArr, letter);
-
         // if the letter the player inputed DOES occur at least once in the answer
         if (userIndexArr.length > 0) {
+          console.log("The letter entered is in the answer!")
           // update the blank spaces of the the blank array to show the letter in
           // its proper spot relative to the answer
           for (var j=0; j < userIndexArr.length; j++) {
             blankSpaceArr[userIndexArr[j]] = letter;
           } // end for loop
           userGuess = blankSpaceArr.join("");
+          $("#guess-word").html(userGuess);
+
+          if (userGuess === answer) {
+            $("#win-answer").html(userGuess);
+            $("#win-block").show();
+            $("#lose-block").hide();
+            $("#main-container").hide();
+            lives = 2;
+            alreadyGuessedLetters = [];
+          } // end else if statment
 
         } else {
           // if the letter the player guessed is NOT in the answer
           if (alreadyGuessedLetters.indexOf(letter) === -1) {
             // add that letter to an array of already guessed letters not found in the answer
             alreadyGuessedLetters.push(letter);
-            // and take away one life
+            $('#incorrect-letters').html(alreadyGuessedLetters);
+
             lives--;
+            $("#lives").html(lives);
+
+            if (lives === 0) {
+              // tell the GAME OVER!
+              $("#win-block").hide();
+              $("#lose-block").show();
+              $("#main-container").hide();
+              lives = 2;
+              alreadyGuessedLetters = [];
+            }
           } // end if statement
         } // end else statement
 
@@ -95,24 +100,11 @@ $(document).ready() {
       } else {
         alert("Please enter one lowercase letter as your guess");
       } // end else statement
-    } // end while loop
+    }); // end submit click event
+  } // end startGame function
 
-    // if the player runs out of lives
-    if (lives === 0) {
-      // tell the GAME OVER!
-      $("#win-block").hide();
-      $("#lose-block").show();
-      $("main-container").hide();
-    // Otherwise, if their guess matches the answer, tell the player they WON!
-    } else if (match === true) {
-      $("#win-block").show();
-      $("#lose-block").hide();
-      $("main-container").hide();
-    } // end else if statment
-
-  } // end playGame function
-
-  //---------------------------------------------------------------------------
+startGame();
+//---------------------------------------------------------------------------
 
   /*
   getAllIndexes function
@@ -158,4 +150,4 @@ $(document).ready() {
 
   //----------------------------------------------------------------------------
 
-} // end document.ready function
+}); // end document.ready function
