@@ -33,7 +33,6 @@ $(document).ready(function () {
     $("#hint").html(hint);
 
     let answer =  randomCategory.guesswords[randNum2];
-    console.log("answer: " + answer);
     let answerArr = answer.split("");
 
     let blankSpaceArr = generateBlankSpaces(answer);

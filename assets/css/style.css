@@ -1,0 +1,57 @@
+body {
+  background-color: #111111;
+  color: white;
+  font-family: 'Baloo Bhaina', cursive;
+}
+
+button {
+  background: #111111;
+  color: white;
+  border-color: white;
+  margin: 1em;
+}
+button:hover {
+  background: white;
+  color: #111111;
+}
+
+#hangman-title {
+  font-size: 4em;
+  margin: 0.5em 0 0.5em;
+}
+
+#main-container {
+  border: 3px solid white;
+  border-radius: 10px;
+}
+
+#guess-word {
+  letter-spacing: 0.5em;
+}
+
+#player-input {
+  background: #111111;
+  color: white;
+}
+#player-input::placeholder {
+  color: white;
+}
+
+#stats {
+  border: 3px solid white;
+  border-radius: 10px;
+  margin: 0em 4em 1em 4em;
+  padding: 1em 0em 1em;
+}
+
+#win-block {
+  color: #29c124;
+  border: 3px solid white;
+  border-radius: 10px;
+}
+
+#lose-block {
+  color: #f04141;
+  border: 3px solid white;
+  border-radius: 10px;
+}
