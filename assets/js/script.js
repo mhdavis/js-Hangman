@@ -16,13 +16,13 @@ $(document).ready(function () {
 
   // plays out the full game
 
+  $('.refresh-button').on("click", startGame);
+
   function startGame () {
 
     $("#win-block").hide();
     $("#lose-block").hide();
     $("#main-container").show();
-
-    $('.refresh-button').on("click", startGame());
 
     // Declares all variables needed for function;
     let randNum1 = Math.floor(Math.random() * categories.length);
@@ -46,14 +46,39 @@ $(document).ready(function () {
     let lives = 2;
     $("#lives").html(lives);
 
+    // NEED TO DETERMINE BEST LOCATION FOR THIS IF STATEMENT
+    if (userGuess === answer) {
+
+      $("#win-answer").html(userGuess);
+      $("#win-block").show();
+      $("#lose-block").hide();
+      $("#main-container").hide();
+      lives = 2;
+      alreadyGuessedLetters = [];
+
+    }
+
+    // NEED TO DETERMINE BEST LOCATION FOR THIS IF STATEMENT
+    if (lives === 0) {
+
+      $("#win-block").hide();
+      $("#lose-block").show();
+      $("#main-container").hide();
+      lives = 2;
+      alreadyGuessedLetters = [];
+
+    } // end else if statment
 
     $('#submit-button').on('click', function () {
 
       let letter = $('#player-input').val();
-      // if player inputs one letter
+      $('#player-input').val('');
+
+
       if (typeof letter === "string" && letter.length === 1) {
         console.log("--------------------------------------")
         // determine all the instances that letter occurs in the answer
+
         let userIndexArr = getAllIndexes(answerArr, letter);
         // if the letter the player inputed DOES occur at least once in the answer
         if (userIndexArr.length > 0) {
@@ -66,15 +91,6 @@ $(document).ready(function () {
           userGuess = blankSpaceArr.join("");
           $("#guess-word").html(userGuess);
 
-          if (userGuess === answer) {
-            $("#win-answer").html(userGuess);
-            $("#win-block").show();
-            $("#lose-block").hide();
-            $("#main-container").hide();
-            lives = 2;
-            alreadyGuessedLetters = [];
-          } // end else if statment
-
         } else {
           // if the letter the player guessed is NOT in the answer
           if (alreadyGuessedLetters.indexOf(letter) === -1) {
@@ -84,15 +100,6 @@ $(document).ready(function () {
 
             lives--;
             $("#lives").html(lives);
-
-            if (lives === 0) {
-              // tell the GAME OVER!
-              $("#win-block").hide();
-              $("#lose-block").show();
-              $("#main-container").hide();
-              lives = 2;
-              alreadyGuessedLetters = [];
-            }
           } // end if statement
         } // end else statement
 
