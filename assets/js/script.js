@@ -42,32 +42,11 @@ $(document).ready(function () {
     $("#guess-word").html(userGuess);
 
     let alreadyGuessedLetters = [];
+    $('#incorrect-letters').html(alreadyGuessedLetters);
 
-    let lives = 2;
+    let lives = 10;
     $("#lives").html(lives);
 
-    // NEED TO DETERMINE BEST LOCATION FOR THIS IF STATEMENT
-    if (userGuess === answer) {
-
-      $("#win-answer").html(userGuess);
-      $("#win-block").show();
-      $("#lose-block").hide();
-      $("#main-container").hide();
-      lives = 2;
-      alreadyGuessedLetters = [];
-
-    }
-
-    // NEED TO DETERMINE BEST LOCATION FOR THIS IF STATEMENT
-    if (lives === 0) {
-
-      $("#win-block").hide();
-      $("#lose-block").show();
-      $("#main-container").hide();
-      lives = 2;
-      alreadyGuessedLetters = [];
-
-    } // end else if statment
 
     $('#submit-button').on('click', function () {
 
@@ -76,13 +55,11 @@ $(document).ready(function () {
 
 
       if (typeof letter === "string" && letter.length === 1) {
-        console.log("--------------------------------------")
-        // determine all the instances that letter occurs in the answer
 
+        // determine all the instances that letter occurs in the answer
         let userIndexArr = getAllIndexes(answerArr, letter);
         // if the letter the player inputed DOES occur at least once in the answer
         if (userIndexArr.length > 0) {
-          console.log("The letter entered is in the answer!")
           // update the blank spaces of the the blank array to show the letter in
           // its proper spot relative to the answer
           for (var j=0; j < userIndexArr.length; j++) {
@@ -91,15 +68,47 @@ $(document).ready(function () {
           userGuess = blankSpaceArr.join("");
           $("#guess-word").html(userGuess);
 
+          if (userGuess === answer) {
+
+            $(".win-answer").html(userGuess);
+            $("#win-block").show();
+            $("#lose-block").hide();
+            $("#main-container").hide();
+            lives = 2;
+            alreadyGuessedLetters = [];
+            $("#submit-button").off('click');
+            return false;
+
+          }
+
         } else {
           // if the letter the player guessed is NOT in the answer
           if (alreadyGuessedLetters.indexOf(letter) === -1) {
             // add that letter to an array of already guessed letters not found in the answer
             alreadyGuessedLetters.push(letter);
-            $('#incorrect-letters').html(alreadyGuessedLetters);
+
+            if (alreadyGuessedLetters.indexOf(letter) === 0) {
+              $('#incorrect-letters').append(letter);
+            } else {
+              $('#incorrect-letters').append(", " + letter);
+            }
 
             lives--;
             $("#lives").html(lives);
+
+            if (lives === 0) {
+
+              $(".win-answer").html(answer);
+              $("#win-block").hide();
+              $("#lose-block").show();
+              $("#main-container").hide();
+              lives = 2;
+              alreadyGuessedLetters = [];
+
+              $("#submit-button").off('click');
+              return false;
+
+            }
           } // end if statement
         } // end else statement
 
