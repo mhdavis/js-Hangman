@@ -1,16 +1,23 @@
 $(document).ready(function () {
   const categories = [
     {
-      "hint": "80's Bands",
-      "guesswords": ["blondie", "tears for fears", "the talking heads", "michael jackson"]
+      "hint": "80's Bands and Musicians",
+      "guesswords": ["blondie", "tears for fears", "the talking heads", "michael jackson",
+        "prince", "madonna", "the smiths", "a flock of seagulls", "duran duran", "oingo boingo",
+        "men at work", "hall and oates", "the bangles", "foreigner", "pat benetar", "the outfield",
+        "simple minds", "journey", "cyndi lauper"]
     },
     {
       "hint": "Colors",
-      "guesswords": ["red", "blue", "green", "violet"]
+      "guesswords": ["red", "blue", "green", "violet", "cerulean", "cyan", "fuschia", "chartreuse",
+    "lavender", "pink", "indigo", "grey", "black", "gold"]
     },
     {
-      "hint": "Jobs",
-      "guesswords": ["policeman", "musician", "firefighter", "artist"]
+      "hint": "Occupations",
+      "guesswords": ["policeman", "musician", "firefighter", "artist", "painter", "software developer",
+    "teacher", "athlete", "astronaut", "professor", "crossing guard", "school principle", "janitor",
+    "security guard", "banker", "financial manager", "stock broker", "president", "governor", "congressman",
+    "actor", "graphic designer"]
     }
   ];
 

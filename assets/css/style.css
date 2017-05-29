@@ -1,7 +1,8 @@
 body {
   background-color: #111111;
   color: white;
-  font-family: 'Baloo Bhaina', cursive;
+  font-family: 'VT323', monospace;
+  font-size: 1.5em;
 }
 
 button {
@@ -13,16 +14,24 @@ button {
 button:hover {
   background: white;
   color: #111111;
+  text-shadow: 0 0 4px #ffffff;
+}
+
+.glow {
+    box-shadow: 0 0 4px 0.1em #ffffff;
 }
 
 #hangman-title {
+  font-family: 'Baloo Bhaina', cursive;
   font-size: 4em;
   margin: 0.5em 0 0.5em;
+  text-shadow: 0 0 4px #ffffff;
 }
 
 #main-container {
   border: 3px solid white;
   border-radius: 10px;
+  width: 60%;
 }
 
 #guess-word {
@@ -35,6 +44,7 @@ button:hover {
 }
 #player-input::placeholder {
   color: white;
+  text-shadow:  0 0 0.25em #ffffff;
 }
 
 #stats {
@@ -42,16 +52,21 @@ button:hover {
   border-radius: 10px;
   margin: 0em 4em 1em 4em;
   padding: 1em 0em 1em;
+  text-shadow: 0 0 0.25em #ffffff;
 }
 
 #win-block {
   color: #29c124;
   border: 3px solid white;
   border-radius: 10px;
+  width: 60%;
+  text-shadow: 0 0 4px #29c124;
 }
 
 #lose-block {
   color: #f04141;
   border: 3px solid white;
   border-radius: 10px;
+  width: 60%;
+  text-shadow: 0 0 4px #f04141;
 }

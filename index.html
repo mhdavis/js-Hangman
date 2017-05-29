@@ -18,7 +18,7 @@
      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina|VT323" rel="stylesheet">
     <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -28,28 +28,28 @@
 
   <body>
     <h1 id="hangman-title" class="text-center">Hangman</h1>
-    <div id="main-container" class="container-fluid col-lg-4-offset-4 col-md-4-offset4 col-sm-4-offset-4 text-center">
+    <div id="main-container" class="glow container-fluid col-lg-4-offset-4 col-md-4-offset-4 col-sm-4-offset-4 text-center">
       <h2><span id="guess-word"></span></h2>
       <input id="player-input" placeholder="Enter a letter"></input>
       <br>
       <button id="submit-button" class="btn-lg">Submit</button>
 
-      <div id="stats">
+      <div id="stats" class="glow">
         <p>Hint: <span id="hint"></span></p>
         <p>Lives: <span id="lives"></span></p>
         <p>Incorrect Letters: <span id="incorrect-letters"></span></p>
       </div>
     </div>
 
-    <div id="win-block" class="container-fluid col-lg-6-offset-3 col-md-6-offset-3 col-sm-12 text-center">
-      <h1>Congratulations!</h1>
-      <h3>You got the right answer!</h3>
+    <div id="win-block" class="glow container-fluid col-lg-6-offset-3 col-md-6-offset-3 col-sm-12 text-center">
+      <h1 class="title-font">Congratulations</h1>
+      <h3>You got the right answer</h3>
       <h3>Answer: <span class="win-answer"></span></h3>
       <button class="refresh-button btn-lg">Try Again</button>
     </div>
 
-    <div id="lose-block" class="container col-lg-6-offset-3 col-md-6-offset-3 col-sm-12 text-center">
-      <h1>Game Over</h1>
+    <div id="lose-block" class="glow container-fluid col-lg-6-offset-3 col-md-6-offset-3 col-sm-12 text-center">
+      <h1 class="title-font">Game Over</h1>
       <h3>Answer: <span class="win-answer"></span></h3>
       <button class="refresh-button btn-lg">Try Again</button>
     </div>
