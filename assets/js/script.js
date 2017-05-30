@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+  // Catergories and guesswords
   const categories = [
     {
       "hint": "80's Bands and Musicians",
@@ -21,9 +23,9 @@ $(document).ready(function () {
     }
   ];
 
-  // plays out the full game
-
+  // Refresh button to restart game
   $('.refresh-button').on("click", startGame);
+
 
   function startGame () {
 
@@ -31,7 +33,7 @@ $(document).ready(function () {
     $("#lose-block").hide();
     $("#main-container").show();
 
-    // Declares all variables needed for function;
+    // Declares all variables needed for function and displays stats in html
     let randNum1 = Math.floor(Math.random() * categories.length);
     let randNum2 = Math.floor(Math.random() * categories[randNum1].guesswords.length);
     let randomCategory = categories[randNum1];
@@ -56,6 +58,7 @@ $(document).ready(function () {
 
     $('#submit-button').on('click', function () {
 
+      // user is submits a letter
       let letter = $('#player-input').val();
       $('#player-input').val('');
 
@@ -88,6 +91,7 @@ $(document).ready(function () {
           }
 
         } else {
+
           // if the letter the player guessed is NOT in the answer
           if (alreadyGuessedLetters.indexOf(letter) === -1) {
             // add that letter to an array of already guessed letters not found in the answer
@@ -97,7 +101,7 @@ $(document).ready(function () {
               $('#incorrect-letters').append(letter);
             } else {
               $('#incorrect-letters').append(", " + letter);
-            }
+            } // end else statement
 
             lives--;
             $("#lives").html(lives);
@@ -114,7 +118,7 @@ $(document).ready(function () {
               $("#submit-button").off('click');
               return false;
 
-            }
+            } // end if statement
           } // end if statement
         } // end else statement
 
@@ -126,10 +130,11 @@ $(document).ready(function () {
   } // end startGame function
 
 startGame();
+
 //---------------------------------------------------------------------------
 
   /*
-  getAllIndexes function
+  FUNCTION: getAllIndexes
 
   takes an array and a value and determines if the instances of that value
   in the given array. Then returns an array of the indexes in which that
@@ -148,7 +153,7 @@ startGame();
   }
 
   /*
-  generateBlankSpaces function
+  FUNCTION: generateBlankSpaces
 
   Takes a string and subsitutes any characters in the string that are NOT
   spaces with an underscore. Returns an array of the string with only underscores
@@ -170,6 +175,6 @@ startGame();
     return blankArr;
   };
 
-  //----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 
 }); // end document.ready function
