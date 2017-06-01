@@ -59,7 +59,7 @@ $(document).ready(function () {
     $('#submit-button').on('click', function () {
 
       // user is submits a letter
-      let letter = $('#player-input').val();
+      let letter = $('#player-input').val().toLowerCase();
       $('#player-input').val('');
 
 
